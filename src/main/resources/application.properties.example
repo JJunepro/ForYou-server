@@ -1,6 +1,4 @@
-spring.application.name=ForYou-server
-
-# ?? ?? (Vite? ?? 5173 ?? ??)
+# 서버 설정 (Vite와 연동 5173 포트 허용)
 server.port=8080
 server.servlet.encoding.charset=UTF-8
 server.servlet.encoding.enabled=true
@@ -12,11 +10,11 @@ spring.web.cors.allowed-methods=GET,POST,PUT,DELETE,OPTIONS
 spring.web.cors.allowed-headers=*
 spring.web.cors.allow-credentials=true
 
-spring.web.resources.static-locations=classpath:/static/,classpath:/public/,classpath:/dist/
-spring.web.resources.cache.cachecontrol.max-age=3600
-
 # AWS RDS PostgreSQL
-# ??? Discord ??? ?? ??
+spring.datasource.url=jdbc:postgresql://YOUR_RDS_ENDPOINT:5432/YOUR_DATABASE?sslmode=require
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+spring.datasource.driver-class-name=org.postgresql.Driver
 
 # JPA/Hibernate
 spring.jpa.hibernate.ddl-auto=update
@@ -26,7 +24,7 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 spring.jpa.properties.hibernate.connection.provider_disables_autocommit=false
 
-# HikariCP
+# (HikariCP) - 명시적 설정으로 undefined/unknown 문제 해결
 spring.datasource.hikari.maximum-pool-size=20
 spring.datasource.hikari.minimum-idle=5
 spring.datasource.hikari.connection-timeout=20000
@@ -35,35 +33,29 @@ spring.datasource.hikari.max-lifetime=1200000
 spring.datasource.hikari.auto-commit=true
 spring.datasource.hikari.isolation-level=TRANSACTION_READ_COMMITTED
 
-# SSL ?? (AWS RDS?) - ???
+# SSL 설정 (AWS RDS용) - 단순화
 spring.datasource.hikari.data-source-properties.ssl=true
 spring.datasource.hikari.data-source-properties.sslmode=require
 
-# Jackson JSON ??
+# Jackson JSON 설정
 spring.jackson.serialization.write-dates-as-timestamps=false
 spring.jackson.time-zone=Asia/Seoul
 spring.jackson.default-property-inclusion=NON_NULL
 
-# Validation ??
+# Validation 설정
 spring.validation.enabled=true
 
-# Actuator ?? (?????)
+# Actuator 설정 (모니터링용)
 management.endpoints.web.exposure.include=health,info,metrics
 management.endpoint.health.show-details=always
 management.info.env.enabled=true
 
-# ?? ??
+# 로그 설정
 logging.level.com.foryou.foryouserver=DEBUG
-logging.level.org.springframework.security=DEBUG
-logging.level.org.hibernate.SQL=DEBUG 
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
-logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
 
-# ?? ??? ??
+# 파일 업로드 설정
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=10MB
 
-# ?? ?? ??
+# 에러 처리 설정
 server.error.include-message=always
-server.error.include-binding-errors=always
