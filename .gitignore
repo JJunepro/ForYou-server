@@ -1,37 +1,65 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# application.properties 파일 제외 (보안상 민감한 정보 포함)
+src/main/resources/application.properties
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# 환경별 설정 파일들
+src/main/resources/application-*.properties
+!src/main/resources/application.properties.example
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# 로그 파일들
+*.log
+logs/
+
+# IDE 설정 파일들
+.idea/
+.vscode/
 *.iml
 *.ipr
+*.iws
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Node.js 관련 파일들
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# 빌드 결과물
+build/
+target/
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Gradle 빌드 캐시 파일들
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
 
-### VS Code ###
-.vscode/
+# Gradle 캐시 파일들
+gc.properties
+executionHistory.bin
+executionHistory.lock
+fileHashes.bin
+fileHashes.lock
+last-build.bin
+md5-checksums.bin
+outputFiles.bin
+
+# OS 관련 파일들
+.DS_Store
+Thumbs.db
+
+# 임시 파일들
+*.tmp
+*.temp
+
+# 환경 변수 파일
+.env
+.env.local
+.env.production
