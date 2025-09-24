@@ -22,6 +22,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/public/**", "/actuator/health", "/actuator/info").permitAll()
+                .requestMatchers("/api/auth/signup").permitAll()  // 회원가입 접근 허용 추가
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
