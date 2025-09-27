@@ -76,3 +76,6 @@ src/main/java/com/foryou/foryouserver/
 - `GET /api/code-dtl/group/{grpCd}` - 그룹별 상세 코드 목록
 - `PUT /api/code-dtl/{cd}` - 상세 코드 수정
 - `DELETE /api/code-dtl/{cd}` - 상세 코드 삭제
+
+### 회원 코드 관리 (MemberCode)
+- `POST /api/auth/signup` - 회원 가입
