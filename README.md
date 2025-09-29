@@ -79,3 +79,4 @@ src/main/java/com/foryou/foryouserver/
 
 ### 회원 코드 관리 (MemberCode)
 - `POST /api/auth/signup` - 회원 가입
+- `GET /api/auth/members` - 회원 조회 (전체)
