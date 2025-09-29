@@ -1,13 +1,14 @@
 package com.foryou.foryouserver.controller;
 
+import com.foryou.foryouserver.dto.MemberResponse;
 import com.foryou.foryouserver.dto.SignupRequest;
 import com.foryou.foryouserver.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -20,4 +21,13 @@ public class AuthController {
         memberService.signup(dto);
         return ResponseEntity.ok("회원가입 성공!");
     }
+
+    // 전체 회원 조회
+    @GetMapping("/members")
+    public ResponseEntity<List<MemberResponse>>
+    getAllMembers() {
+        List<MemberResponse> members = memberService.getMemberList();
+        return ResponseEntity.ok(members);
+    }
+
 }

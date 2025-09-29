@@ -23,6 +23,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/public/**", "/actuator/health", "/actuator/info").permitAll()
                 .requestMatchers("/api/auth/signup").permitAll()  // 회원가입 접근 허용 추가
+                .requestMatchers("/api/auth/members").permitAll()  // 회원 조회 접근 허용 추가
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
