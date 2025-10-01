@@ -1,5 +1,6 @@
 package com.foryou.foryouserver.controller;
 
+import com.foryou.foryouserver.dto.ApiResponseDto;
 import com.foryou.foryouserver.dto.CodeMstRequestDto;
 import com.foryou.foryouserver.dto.CodeMstResponseDto;
 import com.foryou.foryouserver.service.CodeMstService;
@@ -27,8 +28,13 @@ public class CodeMstController {
     @PostMapping
     public ResponseEntity<CodeMstResponseDto> createCodeMst(@Valid @RequestBody CodeMstRequestDto requestDto) {
         log.info("코드 그룹 생성 요청: {}", requestDto.getGrpCd());
-        CodeMstResponseDto response = codeMstService.createCodeMst(requestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        try {
+            CodeMstResponseDto response = codeMstService.createCodeMst(requestDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            log.error("코드 그룹 생성 실패: {}", requestDto.getGrpCd(), e);
+            throw e;
+        }
     }
     
     /**

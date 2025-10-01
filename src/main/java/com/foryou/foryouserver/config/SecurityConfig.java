@@ -21,11 +21,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configure(http))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/public/**", "/actuator/health", "/actuator/info").permitAll()
-                .requestMatchers("/api/auth/signup").permitAll()  // 회원가입 접근 허용 추가
-                .requestMatchers("/api/auth/members").permitAll()  // 회원 조회 접근 허용 추가
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                // 개발 단계: 모든 API 허용 (운영 환경에서는 적절한 인증/인가 설정 필요)
+                .requestMatchers("/api/**", "/actuator/**").permitAll()
+                .anyRequest().permitAll()
             )
             .httpBasic(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable);
