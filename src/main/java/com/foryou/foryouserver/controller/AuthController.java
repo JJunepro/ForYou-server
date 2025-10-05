@@ -24,8 +24,7 @@ public class AuthController {
 
     // 전체 회원 조회
     @GetMapping("/members")
-    public ResponseEntity<List<MemberResponse>>
-    getAllMembers() {
+    public ResponseEntity<List<MemberResponse>> getAllMembers() {
         List<MemberResponse> members = memberService.getMemberList();
         return ResponseEntity.ok(members);
     }

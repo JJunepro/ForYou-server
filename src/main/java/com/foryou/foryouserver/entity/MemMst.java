@@ -29,8 +29,16 @@ public class MemMst {
     @Column(name = "mem_nick", length = 100, nullable = false)
     private String memNick;
 
-    @Column(name = "mem_pwd", length = 255, nullable = false)
+    @Column(name = "mem_pwd", length = 255)
     private String memPwd;
+
+    // OAuth2 provider (google, kakao, naver 등)
+    @Column(name = "provider", length = 50)
+    private String provider;
+
+    // OAuth2 provider의 고유 ID
+    @Column(name = "provider_id", length = 255)
+    private String providerId;
 
     // 필드는 기본값으로 "Y" 로 설정
     @Column(name = "mem_status", length = 1, nullable = false)
