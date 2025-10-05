@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google OAuth2 로그인 테스트</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4285f4;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #357ae8;
+        }
+        .info {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .result {
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #558b2f;
+        }
+        .token-info {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Google OAuth2 로그인 테스트</h1>
+
+        <div class="info">
+            <strong>테스트 방법:</strong><br>
+            1. 아래 버튼을 클릭하세요<br>
+            2. Google 계정으로 로그인하세요<br>
+            3. 권한을 허용하세요<br>
+            4. 토큰이 자동으로 표시됩니다
+        </div>
+
+        <a href="/oauth2/authorization/google" class="login-btn">
+            Google로 로그인
+        </a>
+
+        <div id="result" class="result">
+            <h3>✅ 로그인 성공!</h3>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>JWT Token:</strong></p>
+            <div class="token-info" id="token"></div>
+        </div>
+    </div>
+
+    <script>
+        // URL에서 토큰 파라미터 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const email = urlParams.get('email');
+
+        if (token) {
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('email').textContent = email || '없음';
+            document.getElementById('token').textContent = token;
+
+            // 토큰을 localStorage에 저장
+            localStorage.setItem('accessToken', token);
+            localStorage.setItem('userEmail', email);
+
+            console.log('로그인 성공!');
+            console.log('Token:', token);
+            console.log('Email:', email);
+
+            // 토큰 검증
+            fetch(`/api/oauth2/verify?token=${token}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log('토큰 검증 결과:', data);
+                })
+                .catch(err => {
+                    console.error('토큰 검증 실패:', err);
+                });
+        }
+    </script>
+</body>
+</html>
