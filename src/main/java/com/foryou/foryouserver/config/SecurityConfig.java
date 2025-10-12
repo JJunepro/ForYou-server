@@ -27,8 +27,16 @@ public class SecurityConfig {
             .cors(cors -> cors.configure(http))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                // 개발 단계: 모든 API 허용 (운영 환경에서는 적절한 인증/인가 설정 필요)
-                .requestMatchers("/api/**", "/actuator/**", "/login/oauth2/**", "/oauth2/**").permitAll()
+                // 인증 불필요 경로
+                .requestMatchers("/api/auth/signup").permitAll()           // 회원가입
+                .requestMatchers("/api/auth/login").permitAll()            // 로그인
+                .requestMatchers("/api/auth/check-email").permitAll()      // 이메일 중복 체크
+                .requestMatchers("/api/auth/check-nickname").permitAll()   // 닉네임 중복 체크
+                .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                .requestMatchers("/login/oauth2/**", "/oauth2/**").permitAll()  // OAuth2
+                
+                // 개발 단계: 나머지 API도 모두 허용 (추후 인증 필요 시 수정)
+                .requestMatchers("/api/**").permitAll()
                 .anyRequest().permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
