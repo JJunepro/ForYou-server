@@ -34,6 +34,7 @@ yarn.lock
 build/
 target/
 out/
+bin/
 
 # Gradle 빌드 캐시 파일들
 .gradle/
